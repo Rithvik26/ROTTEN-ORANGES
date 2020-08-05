@@ -5,3 +5,5 @@ var genresSchema = new mongoose.Schema({
     name: String
 
 });
+
+mongoose.model('genres', genresSchema);
