@@ -1,11 +1,14 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/movies';
-if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGOLAB_URI;
-}
-
-mongoose.connect(dbURI, {useMongoClient:true});
+//var dbURI = 'mongodb://localhost/movies';
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://Vinnu2000:<password>@cluster1.rnqs4.azure.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function() {
@@ -52,3 +55,4 @@ require('./genres');
 require('./casts');
 require('./reviews');
 require('./favorites');
+
