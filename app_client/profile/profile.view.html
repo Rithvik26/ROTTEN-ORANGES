@@ -1,0 +1,224 @@
+<!-- <link rel="stylesheet" type="text/css" href="stylesheets/main-stylesheet.css"> -->
+
+<navigation></navigation><br><br><br><br>
+<search></search>
+
+<div class="hm-black-light view-main col-md-12 profile">
+  <div class="card">
+  <div class="row">
+  <div class="col-md-4">
+    <img class="img-thumbnail" src="images/profile_photo.png" alt="User Profile Picture">
+  </div>
+  <div class="card-block col-md-8">
+    <p class="h2">Your profile</p>
+    <ul>
+      <li class="col-sm-3">
+        <label class="h6">Full name :</label>
+        <p>{{ vm.user.name }}</p>
+      </li>
+      <li class="col-sm-3">
+        <label class="h6">Email :</label>
+        <p >{{ vm.user.email }}</p>
+      </li>
+      <li class="col-sm-3">
+        <label class="h6">Bio :</label>
+        <p>{{ vm.user.bio }}</p>
+      </li>
+
+    </ul>
+    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalContactForm">
+        Edit
+    </button>
+    <a ng-show="vm.isAdmin" class="btn btn-danger" ng-click="vm.onUpdateMsg = ''" href="/allmovies">List All Movies</a>
+    <button type="button" ng-show="vm.isAdmin" class="btn btn-danger" data-toggle="modal" data-target="#modalAddForm" ng-click="vm.onUpdateMsg = ''">Add Movie</button>
+    <!--Modal: Contact form-->
+    <div class="modal animated fadeIn" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal" role="document">
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title"><i class="fa fa-pencil"></i> Edit Profile Details</h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <form ng-submit="vm.updateUser()">
+                <div class="modal-body mb-0" style=" color: black;">
+                    <div class="md-form form-sm">
+                        <i class="fa fa-envelope prefix"></i>
+                        <input type="text" id="form19" class="form-control" ng-model="vm.user.name">
+                        <label for="form19">Name</label>
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-lock prefix"></i>
+                        <input type="email" id="form20" class="form-control" ng-model="vm.user.email" disabled>
+                        <label for="form20">Your email</label>
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-key prefix"></i>
+                        <input type="password" id="form21" class="form-control" ng-model="vm.user.password">
+                        <label for="form21">Password</label>
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-pencil prefix"></i>
+                        <textarea type="text" id="form8" class="md-textarea mb-0" ng-model="vm.user.bio"></textarea>
+                        <label for="form8">Bio</label>
+                    </div>
+                    <span>{{vm.onUpdateMsg}}</span>
+                    <div class="text-center mt-1-half">
+
+                        <button class="btn btn-info mb-2" type="submit">Update <i class="fa fa-pencil-square-o ml-1"></i></button>&nbsp;
+                        <button class="btn btn-info mb-2" ng-click="vm.clearMessage()" data-dismiss="modal">Done <i class="fa fa-pencil-square-o ml-1"></i></button>
+                    </div>
+
+                </div>
+              </form>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+    <!--Modal: Contact form-->
+
+  </div>
+  <div class="col-sm-3">
+
+
+    <div class="modal animated fadeIn" id="modalAddForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal" role="document">
+            <!--Content-->
+            <div class="modal-content">
+
+                <!--Header-->
+                <div class="modal-header light-blue darken-3 white-text">
+                    <h4 class="title"><i class="fa fa-pencil"></i> Edit Profile Details</h4>
+                    <button type="button" class="close waves-effect waves-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <form ng-submit="vm.addMovie()">
+                <div class="modal-body mb-0" style=" color: black;">
+                    <div class="md-form form-sm">
+                        <i class="fa fa-envelope prefix"></i>
+                        <input type="text" id="form19" class="form-control" ng-model="vm.newmovie.title" required>
+                        <label for="form19">Title</label>
+                    </div>
+
+                    <div class="md-form form-sm">
+                        <i class="fa fa-lock prefix"></i>
+                        <textarea type="text" id="form8" class="md-textarea mb-0" ng-model="vm.newmovie.overview" required></textarea>
+                        <label for="form20">Overview</label>
+                    </div>
+
+                    <i class="fa fa-pencil prefix"></i>
+                    <label>Genres</label>
+                    <div ng-repeat="items in vm.test" class="row">
+                        <div ng-repeat="item in items" class="col-md-4">
+                            <input type="checkbox" name="selectedGenres[]" value="{{item.id}}" ng-checked="vm.selection.indexOf(item.id) > -1" ng-click="vm.toggleSelection(item.id)"> {{item.name}}
+                        </div>
+                    </div>
+                    <input type="checkbox" name="selectedGenres[]" value="878" ng-checked="vm.selection.indexOf(878) > -1" ng-click="vm.toggleSelection(878)"> Science Fiction
+
+                    <!-- <div class="md-form form-sm">
+                        <i class="fa fa-key prefix"></i>
+                        <input type="text" id="form21" class="form-control" ng-model="vm.newmovie.image">
+                        <label for="form21">Image</label>
+                    </div> -->
+                    <br>
+                    <i class="fa fa-key prefix"></i>
+                    <label for="form212">Poster</label>
+                    <input type="file" id="form212" class="form-control" file-model="vm.myFile" accept="image/*">
+
+                    <i class="fa fa-pencil prefix"></i>
+                    <label>Cast</label>
+                    <fieldset data-ng-repeat = "choice in vm.choices">
+                        <div class="col-md-12">
+                            <input type="text" ng-model="choice.character" name="" placeholder="Enter cast role" class="col-md-5" required />
+                            <input type="text" ng-model="choice.name" name="" placeholder="Enter cast name" class="col-md-4" required />
+
+                        <a class="remove col-md-1" ng-show="$last && vm.choices.length > 5" ng-click="vm.removeChoice()" style="background: #C76868;color: #FFF; font-weight: bold; font-size: 21px;
+                            border: 0; cursor: pointer; display: inline-block; padding: 4px 9px; vertical-align: top; line-height: 100%; ">&nbsp;-</a></div>
+                    </fieldset>
+
+                    <a class="addfields btn btn-info" ng-click="vm.addNewChoice()">Add fields</a><br>
+                    <!-- <div class="md-form form-sm">
+                        <i class="fa fa-pencil prefix"></i>
+                        <input type="date" id="form21" class="form-control" ng-model="vm.user.password">
+                        <label for="form8">Release Date</label>
+                    </div> -->
+
+                    <i class="fa fa-calendar"></i>
+                    <label for="form21">Release Date</label>
+                    <input type="date" id="form21" class="form-control" ng-model="vm.newdate.release_date">
+                    <span>{{vm.onUpdateMsg}}</span>
+                    <div class="text-center mt-1-half">
+
+                        <button class="btn btn-info mb-2" type="submit">Add Movie <i class="fa fa-pencil-square-o ml-1"></i></button>&nbsp;
+                        <button class="btn btn-info mb-2" ng-click="vm.clearMessage()" data-dismiss="modal">Done <i class="fa fa-pencil-square-o ml-1"></i></button>
+                    </div>
+
+                </div>
+              </form>
+            </div>
+            <!--/.Content-->
+        </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+<div class="card container Recentlyrated">
+      <ul class="nav nav-pills card-header-pills">
+        <li class="nav-item nav-link col-md-10 h5">
+              Recently Rated Movies
+        </li>
+      </ul>
+  </div>
+<div class="discussionContainer profileDiscuss" >
+  <div class="card container" style="background-color: black;">
+  <div class="card-header">
+
+    <ul class="nav nav-pills card-header-pills">
+      <li class="nav-item nav-link col-md-4">
+        Movie
+      </li>
+      <li class="nav-item nav-link col-md-4">
+        Review
+      </li>
+      <li class="nav-item nav-link col-md-4">
+        Ratings
+      </li>
+    </ul>
+  </div>
+
+  <div ng-hide="vm.userReviews.length==0">
+    <div class="card card-inverse" style="background-color: #333; border-color: black; border-width: 1px; border-style: solid" ng-repeat='review in vm.userReviews'>
+      <div class="card-block">
+        <p class="card-text">
+         <ul class="nav nav-pills">
+          <li class="col-md-4" style="color:white"><a href="/movies/{{review.movie_id}}" style="color:inherit;">{{review.movieName}}</a></li>
+          <li class="col-md-4" style="color:white">{{review.review}}</li>
+          <li class="col-md-4" style="color:white">{{review.rating}}</li>
+         </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div ng-show="vm.userReviews.length==0">
+     <div class="card card-inverse" style="background-color: #333; border-color: black; border-width: 1px; border-style: solid">
+      <div class="card-block">
+           <p class="card-text text-center"  style="color:white"> There are no reviews to be displayed</p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<foot></foot>

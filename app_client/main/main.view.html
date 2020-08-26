@@ -1,0 +1,168 @@
+<!--Navigation & Intro-->
+
+<navigation></navigation><br><br><br><br>
+<search></search>
+    <!--Mask-->
+    <div class="hm-black-light view-main col-md-12">
+        <section class="section" style="margin-bottom: 0px;">
+            <!--Section heading-->
+            <p class="h1-responsive section-heading">Popular</p>
+            <!--Section sescription-->
+            <p class="section-description"></p>
+
+            <div class = "row" >
+              <div class="col-lg-3 col-md-6 mb-r" ng-repeat='movie in vm.movie'>
+
+                <div class="card card-cascade narrower animated fadeInUp">
+                  <div class="view overlay hm-black-light ">
+
+                        <!-- <img ng-src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-fluid main-img" alt=""> -->
+                    <img ng-hide="movie.image" ng-src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" class="img-fluid main-img" alt="Movie Poster">
+                    <img ng-show="movie.image" ng-src="images/{{movie.image}}" class="img-fluid main-img" alt="Movie Poster">
+                        <div class="mask flex-center">
+                            <!-- <p class="h4-responsive white-text" >Title: {{movie.title}}</p>
+                            <p class="h6-responsive white-text" >Rating: {{movie.vote_average}}/10</p> -->
+                            <div class="c100 p{{movie.movieRatinPercentage}}">
+                                <span>{{movie.movieRatinPercentage}}%</span>
+                                <div class="slice">
+                                    <div class="bar"></div>
+                                    <div class="fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    <a href="/movies/{{movie.id}}">
+                        <div class="mask waves-effect waves-light" ripple-radius></div>
+                    </a>
+
+
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <!-- <div class="row"> -->
+                <!-- First Movie -->
+                <!-- <div class="col-lg-3 col-md-6 mb-r">
+                    <div class="card card-cascade narrower">
+
+                        <div class="view overlay hm-white-slight">
+                            <img src="https://image.tmdb.org/t/p/w500/gGBu0hKw9BGddG8RkRAMX7B6NDB.jpg" class="img-fluid" alt="">
+                            <a>
+                                <div class="mask waves-effect waves-light" ripple-radius></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-block text-center">
+                        <h4 class="card-title"><strong><a href="">Logan</a></strong></h4>
+
+                        <ul class="rating">
+                            <li>Rating:</li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star-o"></i></li>
+                        </ul> -->
+
+                        <!--Description-->
+                        <!-- <p class="card-text">In the near future, a weary Logan cares for an ailing Professor X in a hideout on the Mexican border. But Logan's attempts to hide from the world and his legacy are upended when a young mutant arrives, pursued by dark forces.
+                        </p>
+
+                        <div class="card-footer" style="background-color: black;">
+
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Second Movie -->
+                <!-- <div class="col-lg-3 col-md-6 mb-r">
+                    <div class="card card-cascade narrower">
+
+                        <div class="view overlay hm-white-slight">
+                            <img src="https://image.tmdb.org/t/p/w500/5qcUGqWoWhEsoQwNUrtf3y3fcWn.jpg" class="img-fluid" alt="">
+                            <a>
+                                <div class="mask waves-effect waves-light" ripple-radius></div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-block text-center">
+                        <h4 class="card-title"><strong><a href="">Despicable Me 3</a></strong></h4>
+
+                        <ul class="rating">
+                            <li>Rating:</li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star-o"></i></li>
+                        </ul> -->
+
+                        <!--Description-->
+                        <!-- <p class="card-text">Gru and his wife Lucy must stop former '80s child star Balthazar Bratt from achieving world domination.
+                        </p>
+
+                        <div class="card-footer" style="background-color: black;">
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                  <p>{{vm.movie.title}}</p>
+                  <p ng-repeat ='movie in vm.movie'> {{ movie.title}}</p>
+                </div>
+
+            </div> -->
+        </section>
+        <section class="section" style="margin-bottom: 0px;">
+            <!--Section heading-->
+            <p class="h1-responsive section-heading">Latest</p>
+            <!--Section sescription-->
+            <p class="section-description"></p>
+
+            <div class = "row" >
+              <div class="col-lg-3 col-md-6 mb-r" ng-repeat='latest in vm.latest'>
+                <div class="card card-cascade narrower animated fadeInUp">
+                  <div class="view overlay hm-black-light ">
+                    <img ng-hide="latest.image" ng-src="https://image.tmdb.org/t/p/w500{{latest.poster_path}}" class="img-fluid main-img" alt="Movie Poster">
+                    <img ng-show="latest.image" ng-src="images/{{latest.image}}" class="img-fluid main-img" alt="Movie Poster">
+                    <div class="mask flex-center">
+                        <!-- <h5 class="white-text">{{latest.title}}</h5> -->
+                        <div class="c100 p{{latest.movieRatinPercentage}}">
+                            <span>{{latest.movieRatinPercentage}}%</span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/movies/{{latest.id}}">
+                        <div class="mask waves-effect waves-light" ripple-radius></div>
+                    </a>
+
+
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+        </section>
+
+
+    </div>
+
+    <!--/.Mask-->
+<!--/Navigation & Intro-->
+
+<!--Section: Products v.1-->
+<foot></foot>

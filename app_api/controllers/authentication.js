@@ -8,7 +8,8 @@ var sendJSONresponse = function(res, status, content) {
 };
 
 module.exports.register = function(req,res) {
-    User.findOne({ 'email': req.body.email },function(err, person) {
+    User.findOne({ 'email': req.body.email },function(err, person) 
+    {
         console.log("before working");
         if(err) return handleError(err); 
 

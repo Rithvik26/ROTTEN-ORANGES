@@ -1,43 +1,51 @@
 (function () {
 
-    angular
-        .module('meanApp')
-        .controller('registerCtrl', registerCtrl);
+  angular
+    .module('meanApp')
+    .controller('registerCtrl', registerCtrl);
 
-    registerCtrl.$inject = ['$location', 'authentication'];
-    function registerCtrl($location, authentication) {
-        var vm = this;
-        vm.passStrength = "";
-        console.log("Initialized credentials");
-        vm.credentials = {
-            name : "",
-            email : "",
-            password : "",
-            message : ""
-        };
+  registerCtrl.$inject = ['$location', 'authentication'];
+  function registerCtrl($location, authentication) {
+    var vm = this;
+    vm.passStrength = "";
+    console.log("Initialized credentials");
+    vm.credentials = {
+      name : "",
+      email : "",
+      password : "",
+      message:""
+    };
 
-        vm.onsubmit = function () {
-            console.log('Submitting registration');
-            var stroPattern = /^([a-zA-Z0-9*_@!#$%&]+$)/;
-            if(stroPattern.test(vm.credentials.password)){
-                authentication
-                .register(vm.credentials)
-                .error(function(err){
-                    console.log(err.message);
-                    if(err.message = "User Alreay exists")
-                        vm.credentials.message="User Alreay exists";
-                    })
-                .success(function(){
-                    $location.path('main');
-                });
-            }
-            else{
-                vm.passStrength = "Invalid Characters entered";
-            }
-        };
+    vm.onSubmit = function () {
+      console.log('Submitting registration');
+      var stroPattern = /^([a-zA-Z0-9*_@!#$%&]+$)/;
+      if(stroPattern.test(vm.credentials.password)){
+        authentication
+        .register(vm.credentials)
+        .error(function(err){
+          console.log(err.message);
+          if(err.message = "User Already exists")
+            vm.credentials.message = "User Already Exists";
+        })
+        .success(function(){
+          $location.path('main');
+        });
+      }else{
+        vm.passStrength = "Invalid Characters entered";
+      }
 
-        vm.checkpass = function(){
-             //console.log(vm.credentials.password);
+        // .then(function(){
+        //   console.log("Inside the function");
+        //   if(!authentication.isLoggedIn())
+        //    $location.path('/');
+        //  else
+        //   $location.path('profile');
+        // })
+
+    };
+
+    vm.checkPass = function(){
+      //console.log(vm.credentials.password);
       var pass = vm.credentials.password;
       var weakPattern = /^([a-zA-Z]+$)/;
       var medPattern = /^([a-zA-Z0-9]+$)/;
@@ -62,17 +70,18 @@
       }else{
         vm.passStrength = "Invalid Characters entered";
         myEl.addClass("red-text").removeClass("text-warning").removeClass("text-success");
-        }
-        }
+      }
 
-        vm.onblur = function(){
-            var pass = vm.credentials.password;
-            console.log(pass);
-            if(!pass)
-            {
-                vm.passStrength = "";
-            }
-        }
     }
+
+    vm.onblur = function(){
+      var pass = vm.credentials.password;
+      console.log(pass);
+      if(!pass){
+        vm.passStrength = "";
+      }
+    }
+
+  }
 
 })();

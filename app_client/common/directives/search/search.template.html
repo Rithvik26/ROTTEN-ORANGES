@@ -1,0 +1,58 @@
+
+<div class="search" style="padding: 0;">
+    <div class="row" style="position: relative;">
+        <div class="container">
+        <form ng-submit="shvm.onSearch()">
+		    <div class="input-group">
+
+                <div class="input-group-btn">
+                    <select ng-model="queryBy" class="btn btn-outline-white btn-lg" ng-change="change()">
+                      <option value="$"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Any </option>
+                      <option value="title">Movie Title</option>
+                      <option value="overview">Overview</option>
+                    </select>
+
+                </div>
+                <!-- on-focus="focused=true" on-blur="focused=false" -->
+                <input type="hidden" name="search_param" value="all" id="search_param">
+                <input type="text" class="form-control" name="x" ng-model="query[queryBy]" ng-focus="focused=true"  ng-blur="shvm.changeFocused()" ng-change="shvm.search.query=query[queryBy]; shvm.search.filter=queryBy;" placeholder=" Search Movies..." autocomplete="off">
+                <span class="input-group-btn">
+                    <button class="btn btn-outline-white" type="submit"><span class="fa fa-search"></span></button>
+                </span>
+
+            </div>
+        </form>
+        </div>
+
+	</div>
+
+  <!-- <div class="row">
+    <div class="col-lg-6">
+      <form id="search_form" onsubmit="return false;">
+        <div class="input-group">
+          <input type="text" class="input-ol form-control" name="x" ng-model="query" placeholder="Ex: Thor... " />
+          <span class="input-group-btn" onclick="return searchcontent()">
+            <button class="btn btn-outline-primary btn-primary rounded" type="button" aria-label="Search">
+              <i class="fa fa-search" aria-hidden="true"></i>
+             </button>
+           </span>
+        </div>
+      </form>
+    </div>
+  </div> -->
+  <div style="position: relative;">
+   <ul class="artistlist" ng-show="focused">
+    <li ng-animate="'animate'" class="artist cf" ng-focus="focused=true" ng-repeat="item in shvm.movie | filter: query | limitTo:5 " style="height: 100%; height: 100%;  background-color: white;">
+      <a ng-href="/movies/{{item.id}}" style="display: inline-block;">
+        <div class="info row">
+          <img ng-hide="item.image" ng-src="https://image.tmdb.org/t/p/w500{{item.poster_path}}" class="img-fluid main-img" alt="Movie Poster" style="height: 50px; width: 50px; padding-left: 20px; background-size:cover;">
+          <img ng-show="item.image" ng-src="images/{{item.image}}" class="img-fluid main-img" alt="Movie Poster" style="height: 50px; width: 50px; padding-left: 20px; background-size:cover;">
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <p class="h3-responsive">{{item.title}}</p>
+        </div>
+      </a>
+    </li>
+  </ul>
+  </div>
+</div>
+<!-- <p ng-repeat="search in shvm.searchData">{{search.title}}</p> -->

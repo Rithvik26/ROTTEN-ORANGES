@@ -1,7 +1,10 @@
 /*
+
   There are some minor modifications to the default Express setup
   Each is commented and marked with [SH] to make them easy to find
+
  */
+
 
 var express = require('express');
 var path = require('path');
@@ -15,13 +18,88 @@ var passport = require('passport');
 // [SH] Bring in the data model
 require('./app_api/models/db');
 // [SH] Bring in the Passport config after model is defined
-require('./app_api/configuration/passport');
+require('./app_api/config/passport');
 
+var debug = require('debug')('rottenoranges:server');
+var http = require('http');
 
 // [SH] Bring in the routes for the API (delete the default routes)
 var routesApi = require('./app_api/routes/index');
 
 var app = express();
+
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -66,6 +144,8 @@ app.use(function (err, req, res, next) {
     res.json({"message" : err.name + ": " + err.message});
   }
 });
+
+
 
 // development error handler
 // will print stacktrace
